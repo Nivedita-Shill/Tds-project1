@@ -18,6 +18,10 @@ PROCESSED_PATH = "/tmp/processed_requests.json"
 
 app = FastAPI()
 
+@app.get("/")
+async def read_root():
+    return {"message": "Hello, your app is running!"}
+
 # === Persistence for processed requests ===
 def load_processed():
     if os.path.exists(PROCESSED_PATH):
