@@ -11,6 +11,10 @@ from app.github_utils import (
 from app.notify import notify_evaluation_server
 from app.github_utils import create_or_update_binary_file
 
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
 load_dotenv()
 USER_SECRET = os.getenv("USER_SECRET")
 USERNAME = os.getenv("GITHUB_USERNAME")
@@ -127,6 +131,11 @@ def process_request(data):
         "commit_sha": commit_sha,
         "pages_url": pages_url,
     }
+    logging.info("=" * 80)
+    logging.info("COMPLETE EVALUATION PAYLOAD (This is what evaluation server receives)")
+    logging.info("=" * 80)
+    logging.info(json.dumps(payload, indent=2))
+    logging.info("=" * 80)
 
     notify_evaluation_server(data["evaluation_url"], payload)
 
