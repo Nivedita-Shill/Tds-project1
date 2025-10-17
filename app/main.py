@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, BackgroundTasks
+from fastapi import FastAPI, Request, BackgroundTasks, Response
 import os, json, base64
 from dotenv import load_dotenv
 from app.llm_generator import generate_app_code, decode_attachments
@@ -21,6 +21,10 @@ app = FastAPI()
 @app.get("/")
 async def read_root():
     return {"message": "Hello, your app is running!"}
+
+@app.head("/")
+async def head_root():
+    return Response(status_code=200)
 
 # === Persistence for processed requests ===
 def load_processed():
